@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: Soci
+  datasource:
+    url: jdbc:mysql://localhost:3306/soci
+    username: root
+    password: root
