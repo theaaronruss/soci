@@ -2,8 +2,9 @@ CREATE DATABASE soci;
 USE soci;
 CREATE TABLE users (
 	username VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     password VARCHAR(500) NOT NULL,
-    enabled BOOLEAN NOT NULL,
     PRIMARY KEY (username)
 );
 CREATE TABLE authorities (
