@@ -26,15 +26,29 @@ public class PostService {
      *
      * @param username Username of the owner of the post.
      * @param content The content of the post.
+     * @return The newly created post.
      * @throws Exception If username is not found in database.
      */
-    public void createPost(String username, String content) throws Exception {
+    public Post createPost(String username, String content) throws Exception {
         Optional<User> user = userRepository.findById(username);
         if (user.isEmpty()) throw new Exception("User does not exist");
         Post post = new Post();
         post.setOwner(user.get());
         post.setContent(content);
-        postRepository.save(post);
+        return postRepository.save(post);
+    }
+
+    /**
+     * Retrieve a post from the database.
+     *
+     * @param id ID of the post to retrieve.
+     * @return The requested post.
+     * @throws Exception If post is not found in the database.
+     */
+    public Post getPost(long id) throws Exception {
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isEmpty()) throw new Exception("Post does not exist");
+        return post.get();
     }
 
 }
