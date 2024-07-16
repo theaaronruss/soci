@@ -22,8 +22,8 @@ public class User {
     private String lastName;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @JoinTable(name = "authorities", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
-    @Column(name = "authority")
+    @JoinTable(name = "roles", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
+    @Column(name = "role")
     private Set<String> roles;
 
     public String getUsername() {
