@@ -51,4 +51,14 @@ public class PostService {
         return post.get();
     }
 
+    /**
+     * Retrieve all posts created by a specified user.
+     *
+     * @param username Username of the user to retrieve posts for.
+     * @return A list of posts created by the user with {@code username}.
+     */
+    public Iterable<Post> getUserPosts(String username) {
+        return postRepository.findByOwnerUsername(username);
+    }
+
 }
