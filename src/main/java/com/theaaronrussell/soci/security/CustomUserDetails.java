@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class AppUserDetails implements UserDetails, CredentialsContainer {
+public class CustomUserDetails implements UserDetails, CredentialsContainer {
 
     private String username;
     private String password;

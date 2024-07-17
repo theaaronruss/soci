@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements org.springframework.security.co
             String errorMessage = String.format("Username %s not found", username);
             throw new UsernameNotFoundException(errorMessage);
         }
-        return userMapper.userToAppUserDetails(user.get());
+        return userMapper.userToCustomUserDetails(user.get());
     }
 
 }

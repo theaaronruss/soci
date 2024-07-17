@@ -1,7 +1,7 @@
 package com.theaaronrussell.soci.controller;
 
 import com.theaaronrussell.soci.entity.Post;
-import com.theaaronrussell.soci.security.AppUserDetails;
+import com.theaaronrussell.soci.security.CustomUserDetails;
 import com.theaaronrussell.soci.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +20,7 @@ public class MainController {
     }
 
     @GetMapping("/")
-    public String showHome(@AuthenticationPrincipal AppUserDetails user, Model model) {
+    public String showHome(@AuthenticationPrincipal CustomUserDetails user, Model model) {
         model.addAttribute("user", user);
         Iterable<Post> posts;
         try {

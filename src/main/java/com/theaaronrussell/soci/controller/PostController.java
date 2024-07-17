@@ -1,7 +1,7 @@
 package com.theaaronrussell.soci.controller;
 
 import com.theaaronrussell.soci.entity.Post;
-import com.theaaronrussell.soci.security.AppUserDetails;
+import com.theaaronrussell.soci.security.CustomUserDetails;
 import com.theaaronrussell.soci.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,7 +35,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public String processNewPost(@AuthenticationPrincipal AppUserDetails user,
+    public String processNewPost(@AuthenticationPrincipal CustomUserDetails user,
                                  @ModelAttribute(name = "content") String content, Model model) {
         String username = user.getUsername();
         Post post;
