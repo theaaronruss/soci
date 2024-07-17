@@ -10,6 +10,8 @@
 <body>
 <div class="container">
     <h1 th:text="|${user.firstName} ${user.lastName}|"></h1>
+    <p th:text="|Followers: ${followers}|"></p>
+    <p th:text="|Following: ${following}|"></p>
     <h2>Posts</h2>
     <div th:each="post : ${posts}">
         <h3 th:text="|${post.owner.firstName} ${post.owner.lastName}|"></h3>

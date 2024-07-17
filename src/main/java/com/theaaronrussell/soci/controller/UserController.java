@@ -36,6 +36,8 @@ public class UserController {
         Iterable<Post> posts = postService.getUserPosts(username);
         model.addAttribute("user", user);
         model.addAttribute("posts", posts);
+        model.addAttribute("followers", userService.getNumFollowers(username));
+        model.addAttribute("following", userService.getNumFollowing(username));
         return "user";
     }
 
