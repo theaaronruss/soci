@@ -19,7 +19,9 @@
         <input type="submit" value="Post" />
     </form>
     <div th:each="post : ${posts}">
-        <h3 th:text="|${post.owner.firstName} ${post.owner.lastName}|"></h3>
+        <a th:href="@{/users/{username}(username=${post.owner.username})}">
+            <h3 th:text="|${post.owner.firstName} ${post.owner.lastName}|"></h3>
+        </a>
         <p th:text="${post.content}"></p>
     </div>
 </div>
