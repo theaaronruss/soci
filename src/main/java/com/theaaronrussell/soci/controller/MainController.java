@@ -26,7 +26,8 @@ public class MainController {
         try {
             posts = postService.getFollowingPosts(user.getUsername());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            model.addAttribute("username", user.getUsername());
+            return "errors/usernotfound";
         }
         model.addAttribute("posts", posts);
         return "home";

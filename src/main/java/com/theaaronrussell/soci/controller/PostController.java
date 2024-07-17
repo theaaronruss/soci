@@ -28,7 +28,7 @@ public class PostController {
         try {
             post = postService.getPost(id);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return "errors/postnotfound";
         }
         model.addAttribute("post", post);
         return "post";
@@ -36,12 +36,14 @@ public class PostController {
 
     @PostMapping("/post")
     public String processNewPost(@AuthenticationPrincipal AppUserDetails user,
-                                 @ModelAttribute(name = "content") String content) {
+                                 @ModelAttribute(name = "content") String content, Model model) {
+        String username = user.getUsername();
         Post post;
         try {
-            post = postService.createPost(user.getUsername(), content);
+            post = postService.createPost(username, content);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            model.addAttribute("username", username);
+            return "errors/usernotfound";
         }
         return "redirect:/posts/" + post.getId();
     }

@@ -7,22 +7,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class AppUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private static final Logger log = LoggerFactory.getLogger(AppUserDetailsService.class);
+    private static final Logger log = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     @Autowired
-    public AppUserDetailsService(UserRepository userRepository, UserMapper userMapper) {
+    public CustomUserDetailsService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
