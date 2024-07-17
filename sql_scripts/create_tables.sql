@@ -10,13 +10,18 @@ CREATE TABLE users (
 CREATE TABLE roles (
 	username VARCHAR(50) NOT NULL,
     role VARCHAR(50) NOT NULL,
+    PRIMARY KEY (username, role),
     FOREIGN KEY (username) REFERENCES users(username)
 );
-CREATE UNIQUE INDEX ix_auth_username ON roles (username, role);
 CREATE TABLE posts (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	owner VARCHAR(50) NOT NULL,
     content VARCHAR(300) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (owner) REFERENCES users(username)
+);
+CREATE TABLE followers (
+	username VARCHAR(50) NOT NULL,
+    following VARCHAR(50) NOT NULL,
+    PRIMARY KEY (username, following)
 );

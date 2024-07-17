@@ -26,6 +26,11 @@ public class User {
     @Column(name = "role")
     private Set<String> roles;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @JoinTable(name = "followers", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
+    @Column(name = "following")
+    private Set<String> following;
+
     public String getUsername() {
         return username;
     }
@@ -64,6 +69,14 @@ public class User {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public Set<String> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<String> following) {
+        this.following = following;
     }
 
 }

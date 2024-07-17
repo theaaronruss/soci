@@ -6,3 +6,5 @@ INSERT INTO roles (username, role) VALUES ('pwhite', 'USER');
 INSERT INTO posts (owner, content) VALUES ('mjones', 'This is my first post!');
 INSERT INTO posts (owner, content) VALUES ('mjones', 'This is my second post, still going!');
 INSERT INTO posts (owner, content) VALUES ('pwhite', 'Who saw the game on Friday?');
+INSERT INTO followers (username, following) VALUES ('pwhite', 'mjones');
+INSERT INTO followers (username, following) VALUES ('mjones', 'pwhite');

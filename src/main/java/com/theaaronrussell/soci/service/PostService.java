@@ -61,4 +61,17 @@ public class PostService {
         return postRepository.findByOwnerUsername(username);
     }
 
+    /**
+     * Retrieve posts from the users a user is following.
+     *
+     * @param username Username of the user to retrieve posts for based on their following list.
+     * @return A list of posts based on whom the requested user is following.
+     * @throws Exception If the user does not exist.
+     */
+    public Iterable<Post> getFollowingPosts(String username) throws Exception {
+        Optional<User> user = userRepository.findById(username);
+        if (user.isEmpty()) throw new Exception("User does not exist");
+        return postRepository.findByOwnerUsernameIn(user.get().getFollowing());
+    }
+
 }
