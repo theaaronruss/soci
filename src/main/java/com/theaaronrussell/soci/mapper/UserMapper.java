@@ -1,14 +1,12 @@
 package com.theaaronrussell.soci.mapper;
 
-import com.theaaronrussell.soci.entity.User;
-import com.theaaronrussell.soci.security.CustomUserDetails;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserFactory.class)
 public interface UserMapper {
 
     @Mapping(target = "authorities", ignore = true)
-    CustomUserDetails userToCustomUserDetails(User user);
+    org.springframework.security.core.userdetails.User userEntityToUserDetails(com.theaaronrussell.soci.entity.User user);
 
 }
