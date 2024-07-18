@@ -1,0 +1,4 @@
+* Should not be able to access home page without being logged in
+* Should have role of "USER" when accessing home page
+* Current user missing from database on home page should show "User Not Found" page
+* Home page happy path should show "Welcome" message

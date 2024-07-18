@@ -1,5 +1,7 @@
 package com.theaaronrussell.soci.mapper;
 
+import com.theaaronrussell.soci.dto.UserDto;
+import com.theaaronrussell.soci.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -7,6 +9,8 @@ import org.mapstruct.Mapping;
 public interface UserMapper {
 
     @Mapping(target = "authorities", ignore = true)
-    org.springframework.security.core.userdetails.User userEntityToUserDetails(com.theaaronrussell.soci.entity.User user);
+    org.springframework.security.core.userdetails.User userEntityToUserDetails(User user);
+
+    UserDto userToUserDto(User user);
 
 }
