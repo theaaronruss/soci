@@ -23,6 +23,16 @@ public class UserService {
     }
 
     /**
+     * Check if a user exists in the database.
+     *
+     * @param username Username of the user to check for.
+     * @return True if user exists, otherwise false.
+     */
+    public boolean doesUserExists(String username) {
+        return userRepository.existsById(username);
+    }
+
+    /**
      * Retrieve a user from the database.
      *
      * @param username Username of the user to retrieve.

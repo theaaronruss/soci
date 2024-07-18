@@ -13,23 +13,38 @@
     <form th:action="@{/signup}" method="post" th:object="${newUser}">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-control" th:field="*{username}" />
+            <input type="text" id="username" name="username" class="form-control"
+                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" th:field="*{username}" />
+            <div th:if="${#fields.hasErrors('username')}" class="invalid-feedback"
+                 th:text="${#fields.errors('username')[0]}"></div>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-control" th:field="*{password}" />
+            <input type="password" id="password" name="password" class="form-control"
+                   th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" th:field="*{password}" />
+            <div th:if="${#fields.hasErrors('password')}" class="invalid-feedback"
+                 th:text="${#fields.errors('password')[0]}"></div>
         </div>
         <div class="mb-3">
             <label for="confirm-password" class="form-label">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" class="form-control" th:field="*{confirmPassword}" />
+            <input type="password" id="confirm-password" name="confirm-password" class="form-control"
+                   th:classappend="${#fields.hasErrors('confirmPassword')} ? 'is-invalid'" th:field="*{confirmPassword}" />
+            <div th:if="${#fields.hasErrors('confirmPassword')}" class="invalid-feedback"
+                 th:text="${#fields.errors('confirmPassword')[0]}"></div>
         </div>
         <div class="mb-3">
             <label for="first-name" class="form-label">First Name</label>
-            <input type="text" id="first-name" name="first-name" class="form-control" th:field="*{firstName}" />
+            <input type="text" id="first-name" name="first-name" class="form-control"
+                   th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'" th:field="*{firstName}" />
+            <div th:if="${#fields.hasErrors('firstName')}" class="invalid-feedback"
+                 th:text="${#fields.errors('firstName')[0]}"></div>
         </div>
         <div class="mb-3">
             <label for="last-name" class="form-label">Last Name</label>
-            <input type="text" id="last-name" name="last-name" class="form-control" th:field="*{lastName}" />
+            <input type="text" id="last-name" name="last-name" class="form-control"
+                   th:classappend="${#fields.hasErrors('lastName')} ? 'is-invalid'" th:field="*{lastName}" />
+            <div th:if="${#fields.hasErrors('lastName')}" class="invalid-feedback"
+                 th:text="${#fields.errors('lastName')[0]}"></div>
         </div>
         <input type="submit" class="btn btn-primary" value="Sign Up" />
     </form>

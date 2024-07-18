@@ -1,5 +1,6 @@
 package com.theaaronrussell.soci.mapper;
 
+import com.theaaronrussell.soci.dto.NewUserFormDto;
 import com.theaaronrussell.soci.dto.UserDto;
 import com.theaaronrussell.soci.entity.User;
 import org.mapstruct.Mapper;
@@ -12,5 +13,8 @@ public interface UserMapper {
     org.springframework.security.core.userdetails.User userEntityToUserDetails(User user);
 
     UserDto userToUserDto(User user);
+
+    @Mapping(target = "roles", ignore = true)
+    User newUserFormDtoToUser(NewUserFormDto newUser);
 
 }

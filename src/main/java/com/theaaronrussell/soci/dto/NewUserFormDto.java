@@ -1,16 +1,35 @@
 package com.theaaronrussell.soci.dto;
 
-public class NewUserDto {
+import com.theaaronrussell.soci.validator.PasswordsMatch;
+import com.theaaronrussell.soci.validator.UsernameExists;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
+@PasswordsMatch
+@UsernameExists
+public class NewUserFormDto {
+
+    @NotEmpty(message = "Please provide a username")
+    @Size(max = 50, message = "Username must be shorter than 50 characters")
     private String username;
+
+    @NotEmpty(message = "Please provide a password")
     private String password;
+
+    @NotEmpty(message = "Please confirm your password")
     private String confirmPassword;
+
+    @NotEmpty(message = "Please provide a first name")
+    @Size(max = 50, message = "First name must be shorter than 50 characters")
     private String firstName;
+
+    @NotEmpty(message = "Please provide a last name")
+    @Size(max = 50, message = "Last name must be shorter than 50 characters")
     private String lastName;
 
-    public NewUserDto() {}
+    public NewUserFormDto() {}
 
-    public NewUserDto(String username, String password, String confirmPassword, String firstName, String lastName) {
+    public NewUserFormDto(String username, String password, String confirmPassword, String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.confirmPassword = confirmPassword;

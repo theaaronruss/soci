@@ -1,6 +1,8 @@
 package com.theaaronrussell.soci.service;
 
+import com.theaaronrussell.soci.dto.NewUserFormDto;
 import com.theaaronrussell.soci.entity.User;
+import com.theaaronrussell.soci.exception.UsernameAlreadyExistsException;
 import com.theaaronrussell.soci.mapper.UserMapper;
 import com.theaaronrussell.soci.repository.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -10,12 +12,14 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +30,9 @@ class CustomUserDetailsServiceTest {
 
     @Mock
     UserMapper userMapper;
+
+    @Mock
+    PasswordEncoder passwordEncoder;
 
     @InjectMocks
     CustomUserDetailsService userDetailsService;
@@ -48,6 +55,24 @@ class CustomUserDetailsServiceTest {
         UsernameNotFoundException exception = assertThrows(UsernameNotFoundException.class,
                 () -> userDetailsService.loadUserByUsername("mjones"));
         assertEquals("Username mjones not found in database", exception.getMessage());
+    }
+
+    @Test
+    void registerNewUser() throws UsernameAlreadyExistsException {
+        NewUserFormDto input = new NewUserFormDto("mjones", "password", "password", "Matt", "Jones");
+        User newUser = new User("mjones", "password", "Matt", "Jones", null);
+        when(userRepository.existsById("mjones")).thenReturn(false);
+        when(passwordEncoder.encode("password")).thenReturn("password");
+        when(userMapper.newUserFormDtoToUser(input)).thenReturn(newUser);
+        userDetailsService.registerNewUser(input);
+        verify(userRepository).save(newUser);
+    }
+
+    @Test
+    void registerExistingUsername() {
+        NewUserFormDto input = new NewUserFormDto("mjones", "password", "password", "Matt", "Jones");
+        when(userRepository.existsById("mjones")).thenReturn(true);
+        assertThrows(UsernameAlreadyExistsException.class, () -> userDetailsService.registerNewUser(input));
     }
 
 }
