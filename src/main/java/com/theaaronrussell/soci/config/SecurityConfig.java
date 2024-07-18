@@ -15,7 +15,7 @@ public class SecurityConfig {
         HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
         requestCache.setMatchingRequestParameterName(null);
         httpSecurity.requestCache(cache -> cache.requestCache(requestCache));
-        httpSecurity.authorizeHttpRequests(request -> request.anyRequest().hasRole("USER"));
+        httpSecurity.authorizeHttpRequests(request -> request.anyRequest().hasRole(Roles.ROLE_USER));
         httpSecurity.formLogin(Customizer.withDefaults());
         return httpSecurity.build();
     }
