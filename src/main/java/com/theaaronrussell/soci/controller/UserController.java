@@ -1,6 +1,7 @@
 package com.theaaronrussell.soci.controller;
 
 import com.theaaronrussell.soci.dto.NewUserFormDto;
+import com.theaaronrussell.soci.dto.UserLoginDto;
 import com.theaaronrussell.soci.exception.UsernameAlreadyExistsException;
 import com.theaaronrussell.soci.service.CustomUserDetailsService;
 import com.theaaronrussell.soci.service.UserService;
@@ -32,7 +33,7 @@ public class UserController {
 
     @GetMapping("/signup")
     public String showSignUp(@AuthenticationPrincipal UserDetails user, Model model) {
-        log.info("Received GET request for /signup");
+        log.trace("Received GET request for /signup");
         if (user != null) {
             log.info("User is already signed in, redirecting to home page");
             return "redirect:/";
@@ -67,6 +68,13 @@ public class UserController {
             return "redirect:/signup";
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String showLogin(Model model) {
+        log.trace("Received GET request for /login");
+        model.addAttribute("user", new UserLoginDto());
+        return "login";
     }
 
 }

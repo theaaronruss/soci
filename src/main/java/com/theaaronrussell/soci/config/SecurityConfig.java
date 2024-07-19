@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .requestMatchers("/signup").permitAll()
                 .anyRequest().hasRole(Roles.ROLE_USER)
         );
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity.formLogin(login -> login.loginPage("/login").permitAll());
         return httpSecurity.build();
     }
 
