@@ -1,7 +1,9 @@
 package com.theaaronrussell.soci.controller;
 
 import com.theaaronrussell.soci.dto.NewUserFormDto;
+import com.theaaronrussell.soci.dto.UserDto;
 import com.theaaronrussell.soci.dto.UserLoginDto;
+import com.theaaronrussell.soci.exception.UserNotFoundException;
 import com.theaaronrussell.soci.exception.UsernameAlreadyExistsException;
 import com.theaaronrussell.soci.service.CustomUserDetailsService;
 import com.theaaronrussell.soci.service.UserService;
@@ -18,17 +20,22 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
 
 @Controller
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final CustomUserDetailsService userDetailsService;
+    private final UserService userService;
 
     @Autowired
     public UserController(CustomUserDetailsService userDetailsService, UserService userService) {
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     @GetMapping("/signup")
@@ -75,6 +82,24 @@ public class UserController {
         log.trace("Received GET request for /login");
         model.addAttribute("user", new UserLoginDto());
         return "login";
+    }
+
+    @GetMapping("/users/{username}")
+    public String showUser(@PathVariable String username, Model model) {
+        log.trace("Received GET request for /users/{}", username);
+        UserDto user;
+        try {
+            user = userService.getUser(username);
+            log.debug("Found details for user {} {} (username: {})", user.getFirstName(), user.getLastName(), user.getUsername());
+        } catch (UserNotFoundException e) {
+            log.warn("User '{}' was not found in the database", username);
+            return "usernotfound";
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("followers", 0);
+        model.addAttribute("following", 0);
+        model.addAttribute("posts", new ArrayList<>());
+        return "user";
     }
 
 }
