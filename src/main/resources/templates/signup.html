@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Sign Up</h1>
+    <h1 class="text-center">Sign Up</h1>
     <form th:action="@{/signup}" method="post" th:object="${newUser}">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -46,8 +46,14 @@
             <div th:if="${#fields.hasErrors('lastName')}" class="invalid-feedback"
                  th:text="${#fields.errors('lastName')[0]}"></div>
         </div>
-        <input type="submit" class="btn btn-primary" value="Sign Up" />
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary" value="Sign Up" />
+        </div>
     </form>
+    <div class="text-center mt-3">
+        <p class="text-center">or</p>
+        <a class="align-items-center" th:href="@{/login}">Log In</a>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

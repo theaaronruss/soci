@@ -23,6 +23,7 @@ public class SecurityConfig {
         requestCache.setMatchingRequestParameterName(null);
         httpSecurity.requestCache(cache -> cache.requestCache(requestCache));
         httpSecurity.authorizeHttpRequests(request -> request
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/signup").permitAll()
                 .anyRequest().hasRole(Roles.ROLE_USER)
         );

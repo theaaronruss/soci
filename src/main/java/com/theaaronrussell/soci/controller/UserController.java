@@ -59,7 +59,7 @@ public class UserController {
         try {
             userDetailsService.registerNewUser(newUser);
             log.info("New user registered: {} {} (username: {})", newUser.getFirstName(), newUser.getLastName(), newUser.getUsername());
-            request.login(newUser.getUsername(), newUser.getPassword() + 'd');
+            request.login(newUser.getUsername(), newUser.getPassword());
         } catch (UsernameAlreadyExistsException e) {
             log.warn("Failed to register new user: {}", e.getMessage());
             return "redirect:/signup";
